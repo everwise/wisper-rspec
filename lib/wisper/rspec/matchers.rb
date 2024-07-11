@@ -77,6 +77,7 @@ module Wisper
 
         def expected
           [] << @args
+          [] << @kwargs
         end
 
         def actual
