@@ -27,7 +27,7 @@ module Wisper
       def broadcast?(event_name, *args, **kwargs)
 
         expected_args = args.size > 0 ? args : [any_args]
-        expected_kwargs = kwargs.empty? ? {} : kwargs
+        expected_kwargs = kwargs
         @broadcast_events.any? do |event_params|
           name, *args, kwargs = event_params
           matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args, **expected_kwargs)
