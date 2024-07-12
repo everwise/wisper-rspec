@@ -27,7 +27,7 @@ module Wisper
       def broadcast?(event_name, *args, **kwargs)
 
         expected_args = args.size > 0 ? args : [any_args]
-        expected_kwargs = kwargs
+        expected_kwargs = kwargs.empty? ? {} : kwargs
         @broadcast_events.any? do |event_params|
           name, new_args, new_kwargs = event_params
           if new_kwargs.present?
