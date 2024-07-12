@@ -31,14 +31,13 @@ module Wisper
         expected_kwargs = kwargs
         @broadcast_events.any? do |event_params|
           name, new_args, new_kwargs = event_params
-          # if kwargs.present?
-          #   call(*args, **kwargs)
-          # else
-          #   call(*args)
-          # end
-          matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args, **expected_kwargs)
-          binding.pry
-          matcher.args_match?(name, *new_args, **new_kwargs)
+          if new_kwargs.present?
+            matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args, **expected_kwargs)
+            matcher.args_match?(name, *new_args, **new_kwargs)
+          else
+            matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args)
+            matcher.args_match?(name, *new_args)
+          end
         end
       end
     end
