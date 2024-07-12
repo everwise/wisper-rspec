@@ -21,7 +21,6 @@ module Wisper
       end
 
       def method_missing(method_name, *args, **kwargs, &block)
-        binding.pry
         @broadcast_events << [method_name.to_s, *args, **kwargs]
       end
 
