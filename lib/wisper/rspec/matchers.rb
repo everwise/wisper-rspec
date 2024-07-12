@@ -30,8 +30,9 @@ module Wisper
         expected_kwargs = kwargs.empty? ? {} : kwargs
         @broadcast_events.any? do |event_params|
           name, *args, kwargs = event_params
-          matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args)
-          matcher.args_match?(name, *args)
+          matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args, **expected_kwargs)
+          binding.pry
+          matcher.args_match?(name, *args, **kwargs)
         end
       end
     end
