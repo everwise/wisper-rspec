@@ -73,7 +73,7 @@ describe Wisper::RSpec::BroadcastMatcher::Matcher do
     let(:block) do
       Proc.new do
         broadcaster.broadcast('event1')
-        broadcaster.send(:broadcast, 'event2', 12345, foo: :bar)
+        broadcaster.send(:broadcast, 'event2', 12345, foo: nil)
       end
     end
 
