@@ -21,11 +21,11 @@ module Wisper
       end
 
       def method_missing(method_name, *args, **kwargs, &block)
-        # if kwargs.nil? || kwargs.empty?
-        #   @broadcast_events << [method_name.to_s, *args, {}]
-        # else
+        if kwargs.nil? || kwargs.empty?
+          @broadcast_events << [method_name.to_s, *args, {}]
+        else
           @broadcast_events << [method_name.to_s, *args, **kwargs]
-        # end
+        end
       end
 
       def broadcast?(event_name, *args, **kwargs)
@@ -33,7 +33,6 @@ module Wisper
         expected_args = args.size > 0 ? args : [any_args]
         expected_kwargs = kwargs.empty? ? {} : kwargs
         @broadcast_events.any? do |event_params|
-          binding.pry
           name, *args, kwargs = event_params
           matcher = ::RSpec::Mocks::ArgumentListMatcher.new(event_name.to_s, *expected_args, **expected_kwargs)
           matcher.args_match?(name, *args, **kwargs)
