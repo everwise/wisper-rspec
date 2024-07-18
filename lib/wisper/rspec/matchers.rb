@@ -21,7 +21,7 @@ module Wisper
       end
 
       def method_missing(method_name, *args, **kwargs, &block)
-        if kwargs.present?
+        if kwargs
           @broadcast_events << [method_name.to_s, *args, **kwargs]
         else
           @broadcast_events << [method_name.to_s, *args, {}]
