@@ -22,7 +22,7 @@ module Wisper
 
       def method_missing(method_name, *args, **kwargs, &block)
         binding.pry
-        if kwargs.nil?
+        if kwargs.nil? || kwargs.empty?
           @broadcast_events << [method_name.to_s, *args, {}]
         else
           @broadcast_events << [method_name.to_s, *args, **kwargs]
